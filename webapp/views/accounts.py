@@ -1,6 +1,3 @@
-import smtplib
-from email.message import EmailMessage
-
 import flask
 from flask import session
 

@@ -12,7 +12,7 @@ from webapp import model
 @webapp.app.route('/api/v1/users/')
 def webapp_api_search_users():
     if 'username' not in session:
-        return flask.abort(403)
+        return '', 403
 
     db = model.get_db()
     search = request.args.get('search')
@@ -37,6 +37,19 @@ def webapp_api_search_users():
         res.sort(key=lambda x: SequenceMatcher(None, x['username'], search).ratio(), reverse=True)
         return flask.jsonify(res)
 
-@webapp.app.route('/api/v1/users/<username>')
+
+@webapp.app.route('/api/v1/users/<username>/')
 def webapp_api_user_profile(username):
+    if 'username' not in session:
+        return '', 403
+
     db = model.get_db()
+    res = db.execute(
+        'SELECT image, about '
+        'FROM profiles '
+        'WHERE username = ?',
+        (session['username'],)
+    ).fetchone()
+
+    res['username'] = session['username']
+    return flask.jsonify(res)

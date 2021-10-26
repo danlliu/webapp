@@ -14,8 +14,8 @@ SESSION_COOKIE_NAME = 'login'
 
 # File upload to var/uploads/
 WEBAPP_ROOT = pathlib.Path(__file__).resolve().parent.parent
-#UPLOAD_FOLDER = WEBAPP_ROOT/'var'/'uploads'
-#ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-#MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+UPLOAD_FOLDER = WEBAPP_ROOT/'var'/'uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
 DATABASE_FILENAME = WEBAPP_ROOT/'var'/'webapp.sqlite3'
