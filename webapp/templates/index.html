@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webapp</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-icons.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('webapp_index')}}"><i class="bi-globe2" role="img"></i> webapp</a>
+        <button class="navbar-toggler" type="buton" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav w-100 mb-2 mb-lg-0 justify-content-between align-items-center">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="nav-item mx-3">
+                        <a class="nav-link" href="{{url_for('webapp_changelog')}}">Changelog</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle text-muted" href="#" id="userDropdown" role="button"
+                       data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        <span>
+                            <i class="bi-person-fill" role="img"></i>
+                            {{logname}}
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="#FIXME">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#FIXME">Log out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div id="root" class="w-100 p-5"></div>
+
+<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/bundle.js')}}"></script>
+</body>
+</html>

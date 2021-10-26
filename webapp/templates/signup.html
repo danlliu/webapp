@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webapp</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-icons.css')}}"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('webapp_index')}}"><i class="bi-globe2" role="img"></i> webapp</a>
+        <button class="navbar-toggler" type="buton" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav w-100 mb-2 mb-lg-0 justify-content-between align-items-center">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="nav-item mx-3">
+                        <a class="nav-link" href="{{url_for('webapp_changelog')}}">Changelog</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="p-5 mx-5">
+    <h1>Sign up</h1>
+    <small>Already have an account? <a href="{{url_for('webapp_accounts_login')}}">Log in!</a></small>
+
+    <form class="mt-3" action="{{url_for('webapp_create_account')}}" method="post" enctype="multipart/form">
+        <div class="mb-3">
+            <label for="usernameInput" class="form-label">Username</label>
+            {% if bad_username == True %}
+            <input id="usernameInput" type="text" class="form-control is-invalid" name="username" required>
+            <div class="invalid-feedback">
+                Username already taken. Sorry about that :(
+            </div>
+            {% else %}
+            <input id="usernameInput" type="text" class="form-control" name="username" required>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="emailInput" class="form-label">Email</label>
+            <input id="emailInput" type="email" class="form-control" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="passwordInput" class="form-label">Password</label>
+            <input id="passwordInput" type="password" class="form-control" name="password" required>
+        </div>
+        <input type="submit" name="login" class="btn btn-primary">
+    </form>
+
+</div>
+
+<script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+</body>
+</html>
