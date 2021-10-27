@@ -9,22 +9,29 @@ import {
 import Index from './index/index';
 import Users from './users/users';
 import Profile from './profile/profile';
+import Friends from "./friends/friends";
+
 
 export default function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Index/>
-        </Route>
-        <Route exact path="/users/">
-          <Users/>
-        </Route>
-        <Route exact path="/profile/">
-          <Profile/>
-        </Route>
-      </Switch>
-    </Router>
+    <div>
+      <Router>
+        <Switch location={location}>
+          <Route exact path="/">
+            <Index/>
+          </Route>
+          <Route exact path="/users/">
+            <Users/>
+          </Route>
+          <Route exact path="/profile/">
+            <Profile/>
+          </Route>
+          <Route exact path="/friends/">
+            <Friends/>
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

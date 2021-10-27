@@ -77,6 +77,19 @@
 - Data is returned in JSON format in the following format:
 ```
 {
-  
+  pending: [
+    {
+      username: String,
+      time: DateTime,
+      pending: Boolean
+    }
+  ],
+  friends: [
+    {
+      username: String,
+      time: DateTime,
+      pending: Boolean
+    }
+  ]
 }
 ```
