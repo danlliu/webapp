@@ -2,9 +2,17 @@ from flask import request, session
 
 import webapp
 from webapp.views.uploads import upload_file
+from webapp.api_v1.users import webapp_api_user_profile
 
 
-@webapp.app.route('/api/v1/profile', methods=['PUT'])
+@webapp.app.route('/api/v1/users/profile/')
+def webapp_api_get_profile():
+    if 'username' not in session:
+        return '', 403
+    return webapp_api_user_profile(session['username'])
+
+
+@webapp.app.route('/api/v1/users/profile/', methods=['PUT'])
 def webapp_api_update_profile():
     if 'username' not in session:
         return '', 403
@@ -14,8 +22,11 @@ def webapp_api_update_profile():
     new_about = request.form['about']
     new_file = request.files.get('profile')
 
+    print(new_file)
+
     if new_file is not None:
         new_filename = upload_file(new_file)
+        print(new_filename)
         db.execute(
             'UPDATE profiles '
             'SET about = ?, '

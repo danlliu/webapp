@@ -3,37 +3,53 @@ import Icon from "../index/icon";
 
 export default function Profile() {
 
-  const [loaded, setLoaded] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   const [profile, setProfile] = useState({});
 
   const [about, setAbout] = useState('');
+  const [file, setFile] = useState(null);
 
-  useEffect(() => {
-    if (!loaded) return;
-    fetch(`/api/v1/utils/logname/`)
+  const fetchProfile = () => {
+    fetch(`/api/v1/users/profile/`)
       .then((response) => {
-        if (!response.ok) throw Error(response.statusText);
+        if (!response.ok) throw new Error(response.statusText);
         return response.json();
       })
       .then((data) => {
-        const logname = data['logname'];
-        fetch(`/api/v1/users/${logname}/`)
-          .then((response) => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-          })
-          .then((data) => {
-            setProfile(data);
-            setAbout(data['about']);
-            setLoaded(false);
-          })
-          .catch((err) => console.log(err));
+        setLoaded(true);
+        setProfile(data);
+        setAbout(data['about']);
       })
       .catch((err) => console.log(err));
+  }
+
+  useEffect(() => {
+    if (loaded) return;
+    fetchProfile();
   })
 
   const updateProfile = (e) => {
+    let formData = new FormData();
 
+    console.log(file);
+    console.log(file[0]);
+
+    if (file != null) {
+      formData.append('profile', file);
+    }
+    formData.append('about', about);
+
+    fetch('/api/v1/users/profile/', {
+      method: 'PUT',
+      body: formData,
+    })
+      .then((res) => {
+        if (!res.ok) throw Error(res.statusText);
+      })
+      .then((data) => {
+        setLoaded(false);
+      })
+      .catch((err) => console.log(err));
 
     e.preventDefault();
   }
@@ -48,21 +64,21 @@ export default function Profile() {
       </div>
       <hr/>
       <h1>Your Profile</h1>
-      {loaded ?
+      {!loaded ?
         <div className="spinner-border" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
         :
         <div>
-          <div className="d-flex justify-content-start align-items-center">
+          <div className="d-flex justify-content-start align-items-center mb-3">
             {profile.image != null &&
-            <img src={profile.image}
+            <img src={'/uploads/' + profile.image}
                  alt={`${profile.username}'s profile picture`}
-                 className="img-thumbnail px-3"
-                 style={{maxWidth: '48px', maxHeight: '48px'}}
+                 className="me-3 image-thumbnail border"
+                 style={{width: '48px', height: '48px', objectFit: 'contain'}}
             />}
             {profile.image == null &&
-            <i className="bi-person-fill px-3" style={{fontSize: '48px'}}/>}
+            <i className="bi-person-fill me-3" style={{fontSize: '48px'}}/>}
             <p className="h5 mb-0">{profile.username}</p>
           </div>
           <form onSubmit={updateProfile}>
@@ -79,8 +95,10 @@ export default function Profile() {
               <small className="text-muted">{about.length} / 255</small>
             </div>
             <div className="mb-3">
-              <label for="imageInput" className="form-label fw-bold">Upload a new profile picture (optional)</label>
-              <input className="form-control" type="file" id="imageInput"/>
+              <label htmlFor="imageInput" className="form-label fw-bold">Upload a new profile picture (optional)</label>
+              <input className="form-control" type="file" id="imageInput"
+                     onChange={(e) => setFile(e.target.files[0])}
+              />
             </div>
             <button type="submit" className="btn btn-primary">Update Profile</button>
           </form>

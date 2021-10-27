@@ -8,15 +8,15 @@ export default function UserProfile(props) {
     <li className="list-group-item userprofile-link">
       <a href={`/users/${user.username}`}
          className="text-body text-decoration-none">
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center mb-3">
           {user.image != null &&
-          <img src={user.image}
+          <img src={'/uploads/' + user.image}
                alt={`${user.username}'s profile picture`}
-               className="img-thumbnail px-3"
-               style={{maxWidth: '48px', maxHeight: '48px'}}
+               className="me-3 border"
+               style={{width: '48px', height: '48px', objectFit: 'contain'}}
           />}
           {user.image == null &&
-          <i className="bi-person-fill px-3" style={{fontSize: '48px'}}/>}
+          <i className="bi-person-fill me-3" style={{fontSize: '48px'}}/>}
 
           <div className="d-flex flex-column justify-content-start align-items-start" role="img">
             {user.username}
