@@ -20,5 +20,6 @@ INSERT INTO friends (user1, user2)
 VALUES
     ('danlliu', 'aisaav'),
     ('aisaav', 'danlliu'),
-    ('danlliu', 'joericha')
+    ('danlliu', 'joericha'),
+    ('abifox', 'danlliu')
     ;

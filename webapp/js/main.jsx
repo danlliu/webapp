@@ -10,7 +10,7 @@ import Index from './index/index';
 import Users from './users/users';
 import Profile from './profile/profile';
 import Friends from "./friends/friends";
-
+import UserPage from "./users/userpage";
 
 export default function App() {
   return (
@@ -23,6 +23,7 @@ export default function App() {
           <Route exact path="/users/">
             <Users/>
           </Route>
+          <Route path="/users/:username/" component={UserPage}/>
           <Route exact path="/profile/">
             <Profile/>
           </Route>

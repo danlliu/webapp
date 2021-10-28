@@ -12,9 +12,10 @@ def webapp_index():
 
 
 @webapp.app.route('/users/')
+@webapp.app.route('/users/<username>/')
 @webapp.app.route('/profile/')
 @webapp.app.route('/friends/')
-def webapp_alt_index():
+def webapp_alt_index(username=None):
     if 'username' in session:
         return flask.render_template('index.html', **{'logname': session['username']})
     return flask.redirect(flask.url_for('webapp_index'))

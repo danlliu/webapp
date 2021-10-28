@@ -24,15 +24,11 @@ export default function Profile() {
   }
 
   useEffect(() => {
-    if (loaded) return;
     fetchProfile();
-  })
+  }, []);
 
   const updateProfile = (e) => {
     let formData = new FormData();
-
-    console.log(file);
-    console.log(file[0]);
 
     if (file != null) {
       formData.append('profile', file);
@@ -48,6 +44,7 @@ export default function Profile() {
       })
       .then((data) => {
         setLoaded(false);
+        fetchProfile();
       })
       .catch((err) => console.log(err));
 

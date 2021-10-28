@@ -1,3 +1,4 @@
+import flask
 from flask import request, session
 
 import webapp
@@ -9,7 +10,17 @@ from webapp.api_v1.users import webapp_api_user_profile
 def webapp_api_get_profile():
     if 'username' not in session:
         return '', 403
-    return webapp_api_user_profile(session['username'])
+    username = session['username']
+
+    db = webapp.model.get_db()
+    res = db.execute(
+        'SELECT username, image, about '
+        'FROM profiles '
+        'WHERE username = ?',
+        (username,)
+    ).fetchone()
+
+    return flask.jsonify(res)
 
 
 @webapp.app.route('/api/v1/users/profile/', methods=['PUT'])

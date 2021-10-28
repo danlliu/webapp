@@ -34,11 +34,13 @@
       username: String,
       image: String,
       about: String,
+      friendsSince: String
     },
     ...
   ]
 }
 ```
+- `friendsSince` is the time when the current user and the specified user became friends. If the two users are not friends, this field is the empty string `''`.
 
 `GET /api/v1/users/<username>/`
 - Returns the profile of a specific user.
@@ -48,8 +50,15 @@
   username: String,
   image: String,
   about: String,
+  friending: Boolean,
+  friendingTime: String,
+  friended: Boolean,
+  friendedTime: String
 }
 ```
+- `friending` is `true` when either the current user and the searched user are friends, or the current user has sent a friend request to the searched user.
+- `friended` is `true` when either the current user and the searched user are friends, or the searched user has sent a friend request to the current user.
+- `friendingTime` and `friendedTime` are the timestamps when the friend requests were sent, or the time that the two users became friends.
 
 `GET /api/v1/users/profile/`
 - Get the profile of the currently logged in user.
@@ -93,3 +102,13 @@
   ]
 }
 ```
+
+`POST /api/v1/friends/`
+- Add a new friend request or friend.
+- Takes data in JSON format in the following format:
+```
+{
+  username: String
+}
+```
+- Returns `201 Created` on success.
